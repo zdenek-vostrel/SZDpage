@@ -857,8 +857,8 @@ To define own physics list, we will use the [`G4VModularPhysicsList` class](http
 
     class PhysicsList : public G4VModularPhysicsList{
     public:
-        PositronProductionPhysicsList();
-        ~PositronProductionPhysicsList();
+        PhysicsList();
+        ~PhysicsList();
     };
 
     #endif //PHYSICSLIST_HH
@@ -872,13 +872,13 @@ To define own physics list, we will use the [`G4VModularPhysicsList` class](http
 
     #include "../include/physicsList.hh"
 
-    PhysicsList::PositronProductionPhysicsList() {
+    PhysicsList::PhysicsList() {
         RegisterPhysics (new G4EmStandardPhysics());
         RegisterPhysics (new G4EmLowEPPhysics());
         RegisterPhysics(new G4DecayPhysics());
     }
 
-    PhysicsList::~PositronProductionPhysicsList() {};
+    PhysicsList::~PhysicsList() {};
     ```
 
 === "Python"
@@ -886,7 +886,7 @@ To define own physics list, we will use the [`G4VModularPhysicsList` class](http
     ```python title="mainFile.py or physicsList.py"
     from geant4_pybind import *
 
-        class PositronProductionPhysicsList(G4VModularPhysicsList):
+        class PhysicsList(G4VModularPhysicsList):
 
         def __init__(self):
             super().__init__()
@@ -906,6 +906,194 @@ Note that the `mainFile.cc` of `mainFile.py` would be exactly same as [here](#ma
 ### Action definition
 
 The action class allows us to define, among others, particle definition and particle detection. 
+
+We will inherit from [`G4VUserActionInitialization` class](https://apc.u-paris.fr/~franco/g4doxy4.10/html/class_g4_v_user_action_initialization.html) for our action class.
+
+=== "C++"
+    ```c title="include/action.hh"
+    #ifndef ACTION_HH
+    #define ACTION_HH
+
+    #include <G4VUserActionInitialization.hh>
+
+    class ActionInitialization : public G4VUserActionInitialization {
+    public:
+        ActionInitialization();
+        ~ActionInitialization();
+        virtual void Build() const; // this is the method that we will work with
+    };
+
+
+    #endif //ACTION_HH
+    ```
+
+    ```c title="src/action.cc"
+    #include "../include/action.hh"
+
+    ActionInitialization::ActionInitialization() = default;
+
+    ActionInitialization::~ActionInitialization() = default;
+
+    void ActionInitialization::Build() const {
+        // we will add our actions here
+
+    }
+    ```
+
+=== "Python"
+
+    ```python title="mainFile.py or action.py"
+    from geant4_pybind import *
+
+    class ActionInitialization(G4VUserActionInitialization):
+        def Build(self):
+            # we will add our actions here
+            pass
+    ```
+
+Now, we have the main action class. Now we may define various actions (e.g. particle generation) and then insert the back into the `Build` method, that will be triggered for each event, in the first run, in the last run ...
+
+#### Define primary particle generation
+
+For generation of primary particles, we will make use of 
+
+- [`G4VUserPrimaryGeneratorAction` class](https://apc.u-paris.fr/~franco/g4doxy/html/classG4VUserPrimaryGeneratorAction.html) to specify the particle and trigger the generation during the run,
+- [`G4ParticleGun` class](https://apc.u-paris.fr/~franco/g4doxy/html/classG4ParticleGun.html) to generate the particles.
+
+In this example, we define 100 MeV electrons with momentum in the forward (z) direction only.
+
+=== "C++"
+
+    We need to create two additional files: `include/particleGenerator.hh` and `src/particleGenerator.cc`.
+
+    ```c title="include/particleGenerator.hh"
+    #ifndef PARTICLEGENERATOR_HH
+    #define ARTICLEGENERATOR_HH
+
+    #include <G4VUserPrimaryGeneratorAction.hh>
+    #include <G4ParticleGun.hh>
+
+    class particleGenerator : public G4VUserPrimaryGeneratorAction {
+    public:
+        particleGenerator();
+        ~particleGenerator();
+
+        // all setup will be defined in this method
+        virtual void GeneratePrimaries(G4Event *anEvent);
+    private:
+        G4ParticleGun *fParticleGun; // this is the particle gun itself
+    };
+
+
+    #endif //PARTICLEGENERATOR_HH
+    ```
+
+    ```c title="src/particleGenerator.cc"
+    #include "../include/particleGenerator.hh"
+    #include <G4ParticleTable.hh>
+    #include <G4SystemOfUnits.hh>
+
+    // CONSTRUCTOR
+    particleGenerator::particleGenerator(){
+        // we create the particle generator itself
+        fParticleGun = new G4ParticleGun(1); // argument is the number of primary vertices, see the comment box bellow
+        
+        // select electron
+        G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+        G4String particleName;
+        G4ParticleDefinition* particle
+                = particleTable->FindParticle(particleName="e-"); // (1)!
+
+        // we tell the particle gun to create an electron ...
+        fParticleGun->SetParticleDefinition(particle);
+        // ... in the forward (z) direction ...
+        fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.)); // x, y, z
+        // ... with energy of 100 MeV ...
+        fParticleGun->SetParticleEnergy(100. * MeV);
+        // ... and the position of the source
+        fParticleGun->SetParticlePosition(G4ThreeVector(0, 0, -0.5 * cm)); // x, y, z
+
+    }
+
+    // DESTRUCTOR
+    particleGenerator::~particleGenerator(){
+        delete fParticleGun;
+    }
+
+    // this is the method that generates the particles for each event
+    void particleGenerator::GeneratePrimaries(G4Event *anEvent) {
+        fParticleGun->GeneratePrimaryVertex(anEvent);
+    }
+    ```
+
+    1. Most particles are already predefined, so we use the predefined electron.
+
+=== "Python"
+
+    ```python
+    from geant4_pybind import *
+
+    class particleGenerator(G4VUserPrimaryGeneratorAction):
+        def __init__(self, electronEnergy):
+            super().__init__()
+
+            # we create the particle generator itself
+            self.fParticleGun = G4ParticleGun(1) # argument is the number of primary vertices, see the comment box bellow
+
+            # we tell the particle gun to create an electron ...
+            self.fParticleGun.SetParticleDefinition(G4Electron.Definition())
+            # ... in the forward (z) direction ...
+            self.fParticleGun.SetParticleMomentumDirection(G4ThreeVector(0, 0, 1)) # x, y, z
+            # ... with energy of 100 MeV ...
+            self.fParticleGun.SetParticleEnergy(100 * MeVs)
+            # ... and the position of the source
+            self.fParticleGun.SetParticlePosition(G4ThreeVector(0, 0, -0.5 * cm)) # x, y, z 
+
+        def GeneratePrimaries(self, event):
+            self.fParticleGun.GeneratePrimaryVertex(event)
+    ```
+
+!!! info 
+    When creating the particle gun using the `G4ParticleGun` class, we used `1` as the argument: this is the number of primary vertices. However, typically, we want to simulate more than one particle to gain some statistics.
+
+    This is because the convention in Geant4 is to generate one particle per event and have the number of events corresponding to the total number of particles we want to simulate. 
+
+    Also note, that there are no collective effects implemented into Geant4: therefore, multiple primary particles generated in the event do not affect each other. 
+
+!!! info
+    Note that we are using the standard units (cm, MeV). This is thanks to the `#include <G4SystemOfUnits.hh>` in `C++` and  `from geant4_pybind import *` in `Python`.
+
+Finally, we need to add this action to the main action class created in [Action definition](#action-definition).
+
+=== "C++"
+
+    ```c title="src/action.cc" hl_lines="2 9-11"
+    #include "../include/action.hh"
+    #include "../include/particleGenerator.hh"
+
+    ActionInitialization::ActionInitialization() = default;
+
+    ActionInitialization::~ActionInitialization() = default;
+
+    void ActionInitialization::Build() const {
+        // particle generation action
+        auto generator = new particleGenerator();
+        SetUserAction(generator);
+    }
+    ```
+
+=== "Python"
+
+    ```python title="mainFile.py or action.py" hl_lines="3 4"
+    class ActionInitialization(G4VUserActionInitialization):
+        def Build(self):
+            generator = particleGenerator() # (1)!
+            self.SetUserAction(generator)
+    ```
+
+    1. Provided that the definition of `particleGenerator` class is in the same file or is properly imported (it is the class that we created at the beginning of [Define primary particle section](#define-primary-particle-generation)).
+
+#### Define particle detection
 
 ### Running the simulation
 
@@ -952,9 +1140,9 @@ The action class allows us to define, among others, particle definition and part
                 include/construction.hh
                 include/physicsList.hh
                 include/action.hh)
-        target_link_libraries(positronProduction ${Geant4_LIBRARIES})
+        target_link_libraries(mainFile ${Geant4_LIBRARIES})
 
-        add_custom_target(positronProductionCC DEPENDS positronProduction)
+        add_custom_target(mainFileCC DEPENDS mainFile)
 
         ```
 
@@ -979,7 +1167,7 @@ The action class allows us to define, among others, particle definition and part
 
 === "Python"
 
-    Python environment with Geant4 must be correctly initialized first. After that, we write into terminal
+    Python environment with Geant4 must be correctly initialized first. After that, we write into the terminal
 
     ```shell
     python mainFile.py
