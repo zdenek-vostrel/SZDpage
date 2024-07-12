@@ -911,48 +911,71 @@ The action class allows us to define, among others, particle definition and part
 
 === "C++"
 
-    The environment with Geant4 must be correctly intialized.
+    The environment with Geant4 must be correctly intialized. On the top
 
-    Due to the multiple files we have, we will use [CMake](https://cmake.org/) for compilation. We will work with the following file structure
+    Due to the multiple files we have, we will use [CMake](https://cmake.org/) for compilation, so the top directory must contain the `CMakeLists.txt` file. This is already set up in the provided examples.
 
+    ??? example "Sample `CMakeLists.txt`"
+        In the provided examples, the `CMakeLists.txt` is already set up. Nevertheless, when working with the file structure
+
+        ```
+        mainFile.cc
+        CMakeLists.txt
+        include/
+            construction.hh
+            physicsList.hh
+            action.hh
+        src/
+            construction.cc
+            physicsList.cc
+            action.cc
+        ```
+
+        The `CMakeLists.txt` contains:
+
+        ```cmake title="CMakeLists.txt"
+        cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+
+        project(example)
+
+        find_package(Geant4 REQUIRED ui_all vis_all)
+
+        include(${Geant4_USE_FILE})
+
+        file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
+        file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+
+        add_executable(mainFile mainFile.cc ${sources} ${headers}
+                include/construction.hh
+                src/physicsList.cc
+                src/action.cc
+                include/construction.hh
+                include/physicsList.hh
+                include/action.hh)
+        target_link_libraries(positronProduction ${Geant4_LIBRARIES})
+
+        add_custom_target(positronProductionCC DEPENDS positronProduction)
+
+        ```
+
+    During the first build, one must run (from the top directory including `CMakeLists.txt`)
+
+    ```shell
+    mkdir build
+    cd build
+    cmake ..
     ```
-    mainFile.cc
-    CMakeLists.txt
-    include/
-        construction.hh
-        physicsList.hh
-        action.hh
-    src/
-        construction.cc
-        physicsList.cc
-        action.cc
+
+    This will setup the build directory. Now we can build and run the program inside the build directory
+
+    ```shell
+    make
+    ./mainFile
     ```
 
-    The `CMakeLists.txt` contains:
+    After editing the code, we have to rebuild the project using the `make` command.
 
-    ```cmake title="CMakeLists.txt"
-    cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-
-    project(example)
-
-    find_package(Geant4 REQUIRED ui_all vis_all)
-
-    include(${Geant4_USE_FILE})
-
-    file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
-    file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
-
-    add_executable(positronProduction positronProduction.cc ${sources} ${headers}
-            include/action.hh
-            src/sensitiveDetector.cc
-            src/DetectorConstruction.cc
-            include/runAction.hh
-            include/runAction.hh)
-    target_link_libraries(positronProduction ${Geant4_LIBRARIES})
-
-    add_custom_target(positronProductionCC DEPENDS positronProduction)
-
-    ```
+    
 
 === "Python"
 
