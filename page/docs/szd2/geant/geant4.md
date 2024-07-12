@@ -287,7 +287,7 @@ For demonstration, we create a golden plate in a vacuum. First we create the "va
     1. This header file must include the definition of the classes that are implemented in this file.   
     2. There is a [list of predefined materials](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html) that we can use. Alternatively, we can [define the material ourselves](#definition-of-custom-material).
     3. There is not exactly vacuum in Geant4, so we select the material with the lowest density instead. The list of possible materials is [here](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html).
-    4. This is the *solid volume* definition step: it defines the dimensions of the material. **The parameters are: name, X length, Y length, Z length.**
+    4. This is the *solid volume* definition step: it defines the dimensions of the material. **The parameters are: name, X length, Y length, Z length.** [List of other shapes](https://apc.u-paris.fr/~franco/g4doxy/html/classG4CSGSolid.html).
     5. Here we take the *solid volume* defined on the previous line and assign the material to it. The last argument is the (arbitrary) name.
     6. Finally, we place the volume as the *physical volume*. The arguments are following: 
         1. rotation of the volume (we do not want to rotate that)
@@ -563,7 +563,7 @@ Similarly, we can implement the golden foil itself: we need to use different dim
 
         1. There is a [list of predefined materials](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html) that we can use. Alternatively, we can [define the material ourselves](#definition-of-custom-material).
         2. There is not exactly vacuum in Geant4, so we select the material with the lowest density instead. The list of possible materials is [here](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html).
-        3. This is the *solid volume* definition step: it defines the dimensions of the material. **The parameters are: name, X length, Y length, Z length.**
+        3. This is the *solid volume* definition step: it defines the dimensions of the material. **The parameters are: name, X length, Y length, Z length.** [List of other shapes](https://apc.u-paris.fr/~franco/g4doxy/html/classG4CSGSolid.html).
         4. Here we take the *solid volume* defined on the previous line and assign the material to it.
         5. Finally, we place the volume as the *physical volume*. The arguments are following: 
             1. rotation of the volume (we do not want to rotate that)
@@ -577,7 +577,9 @@ Similarly, we can implement the golden foil itself: we need to use different dim
         6. Thanks to `from geant4_pybind import *` we also imported the units namelist from Geant4 and therefore we can use the standard units like this (it just effectively multiplies it by the appropriate factor to match the base units Geant4 works with).
         7. Note that we use the `logicWorld` (vacuum box defined above) as the parent volume.
 
-Apart from the sphere that we have used, there are also other shapes, see the [list of shapes](https://apc.u-paris.fr/~franco/g4doxy/html/classG4CSGSolid.html).
+
+!!! info
+    Apart from the box that we have used, there are also other shapes (sphere, cone, ...), see the [list of shapes](https://apc.u-paris.fr/~franco/g4doxy/html/classG4CSGSolid.html).
 
 #### Definition of custom material
 
