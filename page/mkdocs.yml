@@ -1,0 +1,116 @@
+site_name: SZD
+# repo_url: https://gitlab.cern.ch/CLEAR/bcmgui
+# edit_uri: edit/master/docs/
+
+##############################################################################
+# Page setup. To add documentation pages, go to the end of this document
+
+theme:
+    name: "material"
+    font: false                 # local fonts usage 
+    features:
+    - content.code.copy         # copy button at code block
+    - content.code.annotate     # inline code annotations
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - toc.follow                # table of contents follows users position
+    - content.action.edit       # adds edit button for each page (link to gitlab)
+    - content.action.view       # adds view button for each page (shows the source)
+    - search.suggest            # search suggestions
+    - search.highlight          # highlight the search result
+    - navigation.footer         # navigation in the footer
+    palette: 
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    extra_css:
+    - stylesheets/fonts.css    # local fonts usage 
+
+markdown_extensions:
+- footnotes # footnotes
+- attr_list
+- pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+- pymdownx.inlinehilite
+- pymdownx.snippets:
+    check_paths: true
+- pymdownx.superfences:
+    custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_code_format
+- pymdownx.tabbed:
+      alternate_style: true
+- pymdownx.magiclink # better links
+- admonition
+- pymdownx.details
+- toc:
+      permalink: "¤"
+- tables
+- pymdownx.arithmatex: # math
+    generic: true
+- attr_list
+- pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+- md_in_html
+
+plugins:
+- search
+# - gen-files:
+#     scripts:
+#     - docs/gen_ref_pages.py
+- literate-nav:
+    nav_file: SUMMARY.md
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          separate_signature: true
+          merge_init_into_class: true
+          show_docstring_attributes: true
+          group_by_category: true
+          show_category_heading: true
+          docstring_options:
+            ignore_init_summary: true
+          filters:
+# - git-revision-date-localized:
+#     enable_creation_date: true
+
+# for math
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+
+use_directory_urls: false
+
+# End of page setup
+##############################################################################
+# Page tree
+# add new pages here
+
+nav:
+- Home: 
+  - Introduction: index.md
+  - geant4.md
+- SZD1:
+  - szd1/index.md
+- SZD2:
+  - szd2/index.md
+  - Geant4: szd2/geant/geant4.md
