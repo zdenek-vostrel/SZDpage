@@ -911,7 +911,7 @@ The action class allows us to define, among others, particle definition and part
 
 === "C++"
 
-    The environment with Geant4 must be correctly intialized. On the top
+    The environment with Geant4 must be correctly intialized.
 
     Due to the multiple files we have, we will use [CMake](https://cmake.org/) for compilation, so the top directory must contain the `CMakeLists.txt` file. This is already set up in the provided examples.
 
