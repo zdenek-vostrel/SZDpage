@@ -577,6 +577,8 @@ Similarly, we can implement the golden foil itself: we need to use different dim
         6. Thanks to `from geant4_pybind import *` we also imported the units namelist from Geant4 and therefore we can use the standard units like this (it just effectively multiplies it by the appropriate factor to match the base units Geant4 works with).
         7. Note that we use the `logicWorld` (vacuum box defined above) as the parent volume.
 
+Apart from the sphere that we have used, there are also other shapes, see the [list of shapes](https://apc.u-paris.fr/~franco/g4doxy/html/classG4CSGSolid.html).
+
 #### Definition of custom material
 
 All elements are predefined in Geant4, the list of them can be found [here](https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html). However, sometimes we need to create a compound from different elements. 
@@ -759,6 +761,42 @@ For this we define our own material via the [`G4Material` class](https://apc.u-p
         ```
         
         2. This is what we used before in the [main file](#main-file). We replace it by our own material.
+
+For advanced, the `G4Element` can be defined by us: this can be useful when we want to use specific isotopic composition. See the example bellow, where we want to create LiH with two different isotopes of lithium.
+
+=== "C++"
+
+    ```c
+    G4Material *LiH = new G4Material("LiH", 0.78*g/cm3, 2); // name, density
+    G4Isotope *Li7 = new G4Isotope("Li7", 3, 7); // name, atomic number Z, nucleon number N
+    G4Isotope *Li6 = new G4Isotope("Li6", 3, 6); // name, atomic number Z, nucleon number N
+    G4Element *Li = new G4Element("Li", "Li", 2); // name, symbol, number of isotopes
+
+    // We add the isotopes to Li
+    Li->AddIsotope(Li7, 5*perCent); // what isotope we add, its percentage
+    Li->AddIsotope(Li6, 95*perCent); // what isotope we add, its percentage
+
+    // Finaly we make the LiH: which means adding 1 atom of Li and 1 atom of H
+    LiH->AddElement(Li, 1); // element we are adding, number of atoms
+    LiH->AddElement(nist->FindOrBuildElement("H"), 1); // element we are adding, number of atoms
+    ```
+
+=== "Python"
+
+    ```python
+    LiH = G4Material("LiH", 0.78*g/cm3, 2) # name, density
+    Li7 = G4Isotope("Li7", 3, 7)  # name, atomic number Z, nucleon number N
+    Li6 = G4Isotope("Li6", 3, 6)  # name, atomic number Z, nucleon number N
+    Li = G4Element("Li", "Li", 2) # name, symbol, number of isotopes
+
+    # We add the isotopes to Li
+    Li.AddIsotope(Li7, 5*perCent) # what isotope we add, its percentage
+    Li.AddIsotope(Li6, 95*perCent) # what isotope we add, its percentage
+
+    # Finaly we make the LiH: which means adding 1 atom of Li and 1 atom of H
+    LiH.AddElement(Li, 1) # element we are adding, number of atoms
+    LiH.AddElement(nist.FindOrBuildElement("H"), 1) # element we are adding, number of atoms
+    ```
 
 ### Physics list definition
 
