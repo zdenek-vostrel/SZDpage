@@ -224,6 +224,9 @@ The implementation is performed via the [`G4VUserDetectorConstruction` class](ht
 
 For demonstration, we create a golden plate in a vacuum. First we create the "vacuum box":
 
+!!! info
+    In general, the top volume is called the the *world volume*. In this example, the *world volume* consists of vacuum, but this is arbitrary.
+
 === "C++"
 
     ```c title="include/construction.hh"
