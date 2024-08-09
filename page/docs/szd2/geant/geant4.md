@@ -37,7 +37,19 @@ The toolkit allows the user to define:
 
 The instruction for a local installation one needs to follow the [dedicated official documentation](https://geant4.web.cern.ch/docs/). 
 
-On sunrise machine, Geant4 can be set up by ... #todo
+On sunrise machine, Geant4 can be set up by running the following command
+
+=== "C++"
+
+    ```shell
+    source /data2/vyuka/szd/G4_setup.sh
+    ```
+
+=== "Python"
+
+    ```shell
+    source /data2/vyuka/szd/setup_Geant4.sh
+    ```
 
 ## Simulation setup
 
@@ -73,7 +85,8 @@ There are three components that need to be prepared for each simulation:
 
 </div>
 
-![General Layout](generalLayout.png)
+[![General Layout](generalLayout.png)](generalLayout.png)
+
 
 === "C++"
 
