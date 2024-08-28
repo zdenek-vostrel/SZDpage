@@ -48,6 +48,9 @@ markdown_extensions:
 - pymdownx.inlinehilite
 - pymdownx.snippets:
     check_paths: true
+    base_path:
+      - "."
+      - "../zima"
 - pymdownx.superfences:
     custom_fences:
       - name: mermaid
@@ -111,6 +114,7 @@ nav:
   - geant4.md
 - SZD1:
   - szd1/index.md
+  - szd1/doors.md
 - SZD2:
   - szd2/index.md
   - Geant4: szd2/geant/geant4.md
