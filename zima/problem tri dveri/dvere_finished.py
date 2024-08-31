@@ -56,7 +56,7 @@ def plotTimeDevelopment(oldSelectionCorrect, newSelectionCorrect):
     ax.plot([x[0], x[-1]], [1/3, 1/3], linestyle="--", c="black")
     ax.plot([x[0], x[-1]], [2/3, 2/3], linestyle="--", c="black")
 
-    plt.ylabel("Succes rate [%]")
+    plt.ylabel("Success rate [%]")
     plt.xlabel("Number of iterations [-]")
 
     plt.legend()
