@@ -115,7 +115,7 @@ nav:
 - SZD1:
   - szd1/index.md
   - szd1/doors.md
-  - szd1/DAlambert.md
+  - szd1/DAlembert.md
 - SZD2:
   - szd2/index.md
   - Geant4: szd2/geant/geant4.md

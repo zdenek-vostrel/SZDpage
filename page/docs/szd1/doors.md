@@ -79,7 +79,7 @@ This means that we should always change our selection after the host opens the d
     ```
 
     ???+ success "Output"
-        The output of the problam are the correction rates of the choices and a plot showing its dependance on the number of iterations.
+        The output of the problem are the correction rates of the choices and a plot showing its dependance on the number of iterations.
 
         [![doors](dvere.png)](dvere.png)
 
