@@ -64,3 +64,17 @@ $$
 
     !!! tip "Advanced"
         Try to rewrite the code so that the `for` loop is avoided and the problem is solved via the vectorized approach.
+
+=== "C++ and ROOT"
+    
+    The code bellow is the simulation of the D'Alembert strategy.
+
+    ```C
+    --8<-- "dalembert/DAlembert.C"
+    ```
+
+    ???+ success "Output"
+        The output of the programe is a plot of the balance at the end of the game for multiple runs. It also prints in the terminal the total loss / win.
+
+    !!! tip "Advanced"
+        Try to implement other strategies (random bet, constant bet,...) for comparison.

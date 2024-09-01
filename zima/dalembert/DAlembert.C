@@ -14,7 +14,7 @@ void DAlemberts_strategy() {
     TH1D* h_total;
 
     int super_total = 0; // Variable to accumulate total results
-    int pocet_her = 100; // Number of games to simulate
+    int number_of_games = 100; // Number of games to simulate
 
     // Initialize histogram for total results
     h_total = new TH1D("total", "total", 100, 0.5, 100.5);
@@ -23,7 +23,7 @@ void DAlemberts_strategy() {
     h_total->Sumw2(); // Enable error calculation for the histogram
 
     // Loop through the number of games
-    for (int n = 1; n <= pocet_her; n++) {
+    for (int n = 1; n <= number_of_games; n++) {
         int total = 200; // Starting capital
         int bet = 10;    // Initial bet amount
         int min_bet = 1; // Minimum bet amount
@@ -52,7 +52,7 @@ void DAlemberts_strategy() {
     }
 
     // Adjust super_total by subtracting the initial capital for all games
-    super_total -= (pocet_her * 200);
+    super_total -= (number_of_games * 200);
     std::cout << super_total << std::endl; // Output the final result
     h_total->Draw("hist"); // Draw the histogram
 }
