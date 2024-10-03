@@ -1,6 +1,6 @@
 # The three door problem
 
-The "three door problem," commonly known as the Monty Hall problem, is a probability puzzle based on a game show scenario. Here's how it works:
+The "three door problem," commonly known as the Monty Hall problem, is a probability puzzle based on a game show scenario. Here is how it works:
 
 1. **Setup**: There are three doors: behind one door is a car (the prize you want), and behind the other two doors are goats (which you do not want).
 2. **Initial Choice**: You, the contestant, choose one of the three doors. Let's say you choose Door 1.
