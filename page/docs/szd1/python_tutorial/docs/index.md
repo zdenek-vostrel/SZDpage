@@ -26,4 +26,64 @@ As you can see all dependencies are imported at the beginning of the document, t
     ```
 
 ## Plotting data
-Now let's try a larger dataset. For our training data we can use i.e. the average temperature in the Czech Republic in the last ~25 years. Loading is the same as before 
+Now let's try a larger dataset. For our toy data we can use e.g. the average temperature in the Czech Republic in the last ~45 years. Loading is the same as before
+
+```python
+filename = 'weather_data.csv'
+df = pd.read_csv(filename)
+```
+
+We can either check the csv file directly to see what are the column headers or we can call it in our program:
+
+```python
+print(df.columns) #display column names. 
+```
+???+ success "Output"
+    ```
+    Index(['utc_timestamp', 'CZ_temperature'], dtype='object')
+    ```
+In pandas columns are called by their names, while the elements of a column are still indexed with numbers:
+
+```python
+print(df["CZ_temperature"][:10].tolist()) # the string calls the column, the [:10] calls the first 10 elements of that column. Any range (if it exists) n -> m can be called with [n:m]
+```
+The *tolist()* function converts the pandas dataframe into a python list.
+
+???+ success "Output"
+    ```
+    [-3.422, -3.36, -3.429, -3.697, -4.081, -4.177, -4.192, -3.951, -2.905, -1.887]
+    ```
+
+In complete analogy we can print out the elements of the *utc_timestamp* column. Elements of this column are in the format *YYYY-MM-DDThh-mm-ss*.
+
+To plot our data we need to import a plotting library at the start of our script:
+
+```python
+import matplotlib.pyplot as plt
+```
+
+because pyplot does not know the time format, we need to convert it to datetime first, then we plot and display the figure on screen:
+
+```python
+time = pd.to_datetime(df['utc_timestamp'])
+plt.plot(time, df['CZ_temperature'])
+plt.show()
+```
+
+The resulting image should look like this:
+
+???+ success "Output"
+    ![Temperature](temperature.png)
+
+This image is quite raw, we should name the axes, change font size etc. All of this can be wrapped inside a function that can be recycled in the future:
+
+```python
+--8<-- "python_tutorial/temperature.py"
+```
+
+Several neat features of pandas dataframes were used. An extended tutorial can be found in the [official documentation](https://pandas.pydata.org/docs/reference/frame.html). Running our script will result in this image
+
+???+ success "Output"
+    ![ModifiedTemperature](modifiedTemperature.png)
+
+For more options on color, linestyles and much more check the official [matplotlib documentation](https://matplotlib.org/stable/tutorials/pyplot.html).
