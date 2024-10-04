@@ -77,20 +77,20 @@ plugins:
 # - gen-files:
 #     scripts:
 #     - docs/gen_ref_pages.py
-- literate-nav:
-    nav_file: SUMMARY.md
-- mkdocstrings:
-    handlers:
-      python:
-        options:
-          separate_signature: true
-          merge_init_into_class: true
-          show_docstring_attributes: true
-          group_by_category: true
-          show_category_heading: true
-          docstring_options:
-            ignore_init_summary: true
-          filters:
+# - literate-nav:
+#     nav_file: SUMMARY.md
+# - mkdocstrings:
+#     handlers:
+#       python:
+#         options:
+#           separate_signature: true
+#           merge_init_into_class: true
+#           show_docstring_attributes: true
+#           group_by_category: true
+#           show_category_heading: true
+#           docstring_options:
+#             ignore_init_summary: true
+#           filters:
 # - git-revision-date-localized:
 #     enable_creation_date: true
 
@@ -114,8 +114,10 @@ nav:
   - geant4.md
 - SZD1:
   - szd1/index.md
+  - szd1/python_tutorial/docs/index.md
   - szd1/doors.md
   - szd1/DAlembert.md
+
 - SZD2:
   - szd2/index.md
   - Geant4: szd2/geant/geant4.md
