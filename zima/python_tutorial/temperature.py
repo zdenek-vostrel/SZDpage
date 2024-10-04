@@ -1,4 +1,3 @@
-#let's now try working with some larger dataset, for example weather data. To visualize it, we will need a new library - matplotlib.pyplot
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -8,9 +7,9 @@ def main():
     df = pd.read_csv(filename)
     time = pd.to_datetime(df['utc_timestamp'])
 
-    ref_times = ["1980-01-01","1990-01-01","2000-01-01","2010-01-01", "2020-01-01"]
+    ref_times = ["1980-01-01","1990-01-01","2000-01-01","2010-01-01", "2020-01-01"] #create reference datetimes to showcase conditional operation on pandas dataframes
 
-    xdata = [time[(time >= n) & (time < m)] for n, m in zip(ref_times[:-1], ref_times[1:])] # pandas allows conditional opperation on its elements, in this case our time axis is split into 4 regions according to a decade time intervals
+    xdata = [time[(time >= n) & (time < m)] for n, m in zip(ref_times[:-1], ref_times[1:])] # pandas allows conditional operation on its elements, in this case our time axis is split into 4 regions according to a decade time intervals
     ydata = [df['CZ_temperature'][(time >= n) & (time < m) ] for n, m in zip(ref_times[:-1], ref_times[1:])] # the temperature column is split with the same conditional mask
     labels = ['yrs \'80 - \'90','yrs \'90 - \'00','yrs \'00 - \'10','yrs \'10 - \'20'] # label strings for the plot legend
 
