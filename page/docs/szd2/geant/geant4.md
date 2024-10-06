@@ -35,7 +35,7 @@ The toolkit allows the user to define:
 
 ## Installation & setup
 
-The instruction for a local installation one needs to follow the [dedicated official documentation](https://geant4.web.cern.ch/docs/). 
+The instruction for a local installation one needs to follow the [dedicated official documentation](https://geant4.web.cern.ch/docs/). Information about local installation via [Anaconda](https://www.anaconda.com/){:target="_blank"} are provided [here](geant-install.md).
 
 On sunrise machine, Geant4 can be set up by running the following command
 

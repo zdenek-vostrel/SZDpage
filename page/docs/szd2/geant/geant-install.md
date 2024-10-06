@@ -1,6 +1,6 @@
-# Geant4 instalace&setup
+# Geant4 instalace pomocí [Anaconda](https://www.anaconda.com/){:target="_blank"} 
 
-## Setup bez vlastní lokální instalace
+<!-- ## Setup bez vlastní lokální instalace
 
 ### C++
 
@@ -37,7 +37,7 @@ import geant4_pybind
 Pokud se nevypíše žádný error, setup proběhl úspěšně. 
 
 
-![Kontrola geant4](kontrolaGeant4Python.png)
+![Kontrola geant4](kontrolaGeant4Python.png) -->
 
 ## Instalace pro Python
 
@@ -62,14 +62,14 @@ Anaconda automaticky updatuje váš `~/.bashrc`, což znamená, že se Anaconda 
 ...
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/vostrzd1/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/<you>/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/vostrzd1/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/vostrzd1/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/<you>/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/<you>/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/vostrzd1/miniconda3/bin:$PATH"
+        export PATH="/home/<you>/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
