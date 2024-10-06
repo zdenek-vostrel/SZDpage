@@ -14,7 +14,6 @@ theme:
     - navigation.indexes
     - navigation.sections
     - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.top
     - toc.follow                # table of contents follows users position
     - content.action.edit       # adds edit button for each page (link to gitlab)
@@ -73,6 +72,9 @@ markdown_extensions:
 - md_in_html
 
 plugins:
+- tags:
+    tags: true
+    tags_file: tags.md
 - search
 # - gen-files:
 #     scripts:
@@ -111,13 +113,13 @@ use_directory_urls: false
 nav:
 - Home: 
   - Introduction: index.md
-  - geant4.md
+  - tags.md
 - SZD1:
-  - szd1/index.md
-  - szd1/python_tutorial/docs/index.md
-  - szd1/doors.md
-  - szd1/DAlembert.md
-
+  - SZD1 Codes:
+    - szd1/doors.md
+    - szd1/DAlembert.md
+  - Python tutorials:
+    - szd1/python_tutorial/docs/index.md
 - SZD2:
-  - szd2/index.md
-  - Geant4: szd2/geant/geant4.md
+  - SZD2 Software:
+    - Geant4: szd2/geant/geant4.md
