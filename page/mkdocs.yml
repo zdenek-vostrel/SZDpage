@@ -119,7 +119,7 @@ nav:
     - szd1/doors.md
     - szd1/DAlembert.md
   - Python tutorials:
-    - szd1/python_tutorial/docs/index.md
+    - szd1/python_tutorial/analysis-visualisation-python.md
 - SZD2:
   - SZD2 Software:
     - Geant4: szd2/geant/geant4.md
