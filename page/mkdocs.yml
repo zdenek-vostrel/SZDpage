@@ -14,7 +14,6 @@ theme:
     - navigation.indexes
     - navigation.sections
     - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.top
     - toc.follow                # table of contents follows users position
     - content.action.edit       # adds edit button for each page (link to gitlab)
