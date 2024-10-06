@@ -1,3 +1,8 @@
+---
+tags:
+    - SZD1 Homework
+---
+
 # The three door problem
 
 The "three door problem," commonly known as the Monty Hall problem, is a probability puzzle based on a game show scenario. Here is how it works:
