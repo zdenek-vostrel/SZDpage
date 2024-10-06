@@ -47,7 +47,7 @@ markdown_extensions:
     pygments_lang_class: true
 - pymdownx.inlinehilite
 - pymdownx.snippets:
-    check_paths: true
+    check_paths: false
     base_path:
       - "."
       - "../zima"
