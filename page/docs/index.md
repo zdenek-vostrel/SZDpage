@@ -4,10 +4,6 @@ Hi! This is a page that supporting the SZD subject at FNSPE. It is meant to prov
 
 **The page is still in development, so please report any issues or provide feedback to [Míra Myška](mailto:miroslav.myska@fjfi.cvut.cz).**
 
-See the corresponding bookmarks for additional information: 
-
-- [SZD1](szd1/index.md)
-- [SZD2](szd2/index.md)
 
 <!-- Kdyby se tahle stránka líbila, můžeme ji udělat i pro ty přepsané kódy v Pythonu. Fakt jednoduše se to upravuje ve formátu markdown, což je něco s podobnou filozofií jako LaTeX (akorát to je trošku jednodušší a slabší). Kdybys chtěl vidět hotovou stránku, tak [tady](https://astra-package.docs.cern.ch){:target="_blank"} je dokumentace, co jsem dělal v CERNu. To, co reálně jsem napsal já, je ve složce `./docs`, zbytek se generuje. Vypadá v tom dobře popis kódu, dají se tu psát rovnice LaTeX stylem
 

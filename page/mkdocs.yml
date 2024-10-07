@@ -116,8 +116,8 @@ nav:
   - homework.md
 - SZD1:
   - SZD1 Codes:
-    - szd1/doors.md
-    - szd1/DAlembert.md
+    - szd1/doors/doors.md
+    - szd1/DAlembert/DAlembert.md
   - Python tutorials:
     - szd1/python_tutorial/analysis-visualisation-python.md
 - SZD2:
