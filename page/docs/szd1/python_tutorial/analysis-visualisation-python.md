@@ -26,7 +26,7 @@ As you can see all dependencies are imported at the beginning of the document, t
     ```
 
 ## Plotting data
-Now let's try a larger dataset. For our toy data we can use e.g. the average temperature in the Czech Republic in the last ~45 years. Loading is the same as before
+Now let's try a larger dataset. For our toy data we can use e.g. the [average temperature in the Czech Republic](weather_data.csv) in the last ~45 years. Loading is the same as before
 
 ```python
 filename = 'weather_data.csv'
