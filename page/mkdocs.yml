@@ -119,6 +119,7 @@ nav:
     - szd1/doors/doors.md
     - szd1/DAlembert/DAlembert.md
     - szd1/Correlation/correlation.md
+    - szd1/Newton/newton.md
   - Python tutorials:
     - szd1/python_tutorial/analysis-visualisation-python.md
 - SZD2:
